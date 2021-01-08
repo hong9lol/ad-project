@@ -1,6 +1,7 @@
+import datetime
 import json
 
-title = "20210108"
+title = ""
 
 
 def save(_data):
@@ -10,8 +11,11 @@ def save(_data):
 
 
 def read():
+    global title
+    if title == "":
+        now = datetime.datetime.now()
+        title = str(now.year) + str(now.month).zfill(2) + str(now.day).zfill(2)
     f = open("../data" + title + ".txt", 'r')
     _data = f.read()
     f.close()
     return json.loads(_data.replace("'", "\""))
-
