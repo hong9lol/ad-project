@@ -101,7 +101,7 @@ def c_crawling(ranked_keywords):
 if __name__ == '__main__':
     while True:
         now = datetime.datetime.now()
-        if now.hour == 11 and now.minute == 25:
+        if now.hour == 18 and now.minute == 00:
             title = str(now.year) + str(now.month).zfill(2) + str(now.day).zfill(2)
             naver_ranked_keywords = n_crawling()
             c_crawling(naver_ranked_keywords)
