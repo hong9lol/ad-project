@@ -7,10 +7,11 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 chromeDriverPath = "/usr/bin/chromedriver"
 key_words_list = list()
-output = dict()
+key_words_dict = dict()
+delay = 5
+title = ""
 
-
-def crawling(title):
+def n_crawling():
     num_of_categories = 11
     cid_value = 50000000
     browser = webdriver.Chrome(chromeDriverPath)
@@ -18,7 +19,6 @@ def crawling(title):
     # Get key words
     for i in range(num_of_categories):
         browser.get("https://datalab.naver.com/shoppingInsight/sCategory.naver?cid=" + str(cid_value))
-        delay = 5
         try:
             WebDriverWait(browser, delay).until(lambda x: x.find_element_by_class_name("rank_top1000_num"))
         except TimeoutException:
@@ -32,6 +32,7 @@ def crawling(title):
         cid_value += 1
 
     cid_value = 50000000
+
     # Rank key words
     for key_words in key_words_list:
         for idx, word in enumerate(key_words):
@@ -40,7 +41,6 @@ def crawling(title):
 
             browser.get(
                 "https://datalab.naver.com/shoppingInsight/sKeyword.naver?keyword=" + word + "&cid=" + str(cid_value))
-            delay = 5
             try:
                 WebDriverWait(browser, delay).until(lambda x: x.find_element_by_class_name("bb-circle"))
             except TimeoutException:
@@ -52,23 +52,57 @@ def crawling(title):
             for cy in cys:
                 cy_list.append(cy.get_attribute("cy"))
 
+            # sum ratio for a week
             _sum = 0
             for _idx in range(len(cy_list) - 7, len(cy_list)):
                 _sum += float(cy_list[_idx])
 
-            output[word] = _sum
+            key_words_dict[word] = _sum
         cid_value += 1
 
-    ret = sorted(output.items(), key=(lambda x: x[1]))
-    print(dict(ret))
-    f = open("../data.txt"+title, 'w')
-    f.write(str(dict(ret)))
+    ret = sorted(key_words_dict.items(), key=(lambda x: x[1]))
+    print("[쇼핑 트랜드 키워 분석드 정렬]")
+    print(ret)
+    return dict(ret)
+
+
+def c_crawling(ranked_keywords):
+    browser = webdriver.Chrome(chromeDriverPath)
+    output = dict()
+    for key in ranked_keywords:
+        browser.get(
+            "https://www.coupang.com/np/search?component=&q=" + key + "&channel=user")
+        try:
+            WebDriverWait(browser, delay).until(lambda x: x.find_element_by_class_name("search-product"))
+        except TimeoutException:
+            print("Loading took too much time!")
+            continue
+
+        cnt = 1
+        product_id_list = list()
+        products = browser.find_elements_by_class_name("search-product")
+        for product in products:
+            try:
+                if product.find_element_by_class_name("no-" + str(cnt)) is not None:
+                    product_id_list.append(product.get_attribute("id") + "-" + product.find_element_by_class_name(
+                        "search-product-link").get_attribute("data-item-id"))
+                    cnt += 1
+            except:
+                continue
+        output[key] = product_id_list
+
+    print("[쿠팡 식별 아디디 정보]")
+    print(output)
+    f = open("../data.txt" + title, 'w')
+    f.write(str(output))
     f.close()
 
 
 if __name__ == '__main__':
     while True:
         now = datetime.datetime.now()
-        if now.hour == 9 and now.minute == 0:
-            crawling(str(now.year) + str(now.month).zfill(2) + str(now.day).zfill(2))
+        if now.hour == 11 and now.minute == 25:
+            title = str(now.year) + str(now.month).zfill(2) + str(now.day).zfill(2)
+            naver_ranked_keywords = n_crawling()
+            c_crawling(naver_ranked_keywords)
             time.sleep(60)
