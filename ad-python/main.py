@@ -72,9 +72,7 @@ def crawling(h, m):
         time.sleep(60)
 
 
-import os
-
 if __name__ == '__main__':
-    threading.Thread(target=crawling, args=(9, 49)).start()
+    threading.Thread(target=crawling, args=(17, 0)).start()
     app.run(host="0.0.0.0", debug=False)
     # app.run(debug=True)
