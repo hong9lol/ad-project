@@ -14,6 +14,7 @@ from utils import read, TimeMaker
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+app.config["CACHE_TYPE"] = "null"
 
 pwd = '1'
 cmd = 'ls'

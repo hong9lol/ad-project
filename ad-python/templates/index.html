@@ -23,7 +23,7 @@
                     <ul class="collapse list-unstyled" id="side_menu">
                         {% for key, value in key_word_list.items() %}
                         <li>
-                            <a onclick='show_content("{{ value }}")' href="#">
+                            <a onclick='show_content("{{ key }}", "{{ value }}")' href="#">
                                 {{ key }}
                             </a>
                         </li>
@@ -108,7 +108,7 @@
         <!--        </nav>-->
 
         <!--          Contents-->
-        <h2 class="mb-4">포스팅 정보</h2>
+        <h2 id="main-title" class="mb-4">포스팅 정보</h2>
         <hr>
 
         <div id="card_contents" class="row">
@@ -146,12 +146,14 @@
             $('#Progress_Loading').hide(); //ajax종료시 로딩바를 숨겨준다.
         });
 
-    function show_content(values) {
+    function show_content(key, values) {
         // content reset
         const card_contents = document.getElementById("card_contents");
         while ( card_contents.hasChildNodes() ) { card_contents.removeChild( card_contents.firstChild ); }
         const posting = document.getElementById("posting");
         while ( posting.hasChildNodes() ) { posting.removeChild( posting.firstChild ); }
+
+        document.getElementById("main-title").innerText = key.concat(" 포스팅 정보")
 
         $.ajax({
             url: "/foo",
