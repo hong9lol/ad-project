@@ -40,7 +40,7 @@ def show_contents():
             continue
         title = _t[1]
 
-        img = Image.open("./screenshot.png")atic/images/screens
+        img = Image.open("./screenshot.png")
         area = (520, 190, 1450, 620)
         cropped_img = img.crop(area)
         cropped_img.save("./static/images/screenshot" + str(idx) + ".png")
