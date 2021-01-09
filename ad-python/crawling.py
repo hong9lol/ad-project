@@ -3,7 +3,7 @@ from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.wait import WebDriverWait
 
-from utils import title, save
+from utils import save
 
 chromeDriverPath = "/usr/bin/chromedriver"
 key_words_list = list()
@@ -11,6 +11,8 @@ key_words_dict = dict()
 delay = 5
 
 def n_crawling():
+    key_words_list.clear()
+    key_words_dict.clear()
     num_of_categories = 11
     cid_value = 50000000
     browser = webdriver.Chrome(chromeDriverPath)

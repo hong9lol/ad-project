@@ -23,7 +23,7 @@
                     <ul class="collapse list-unstyled" id="side_menu">
                         {% for key, value in key_word_list.items() %}
                         <li>
-                            <a type="submit" onclick='show_content("{{ value }}")' href="#">
+                            <a onclick='show_content("{{ value }}")' href="#">
                                 {{ key }}
                             </a>
                         </li>
@@ -114,7 +114,19 @@
         <div id="card_contents" class="row">
 
         </div>
-        <p id="posting"><br><br><br><br>x월 x째주 "xxx" Top10 추천 드립니다. <br> 좋은 쇼핑 되시기 바랍니다 :) </p>
+
+        <div class="row">
+            <div class="col-12">
+                <p><br><br><br>[x월 x째주] Top 5 - "xxx"<br>x월 x째주 "xxx" Top10 추천 드립니다. <br> 좋은 쇼핑 되시기 바랍니다 :) </p>
+            </div>
+            <div id="posting" class="col-12">
+
+            </div>
+
+            <div class="col-12">
+                <p><br><br><br>행복한 하루 되세요! <br><br><br> "쿠팡 파트너스 활동을 통해 일정액의 수수료를 제공받을 수 있습니다" </p>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -135,6 +147,12 @@
         });
 
     function show_content(values) {
+        // content reset
+        const card_contents = document.getElementById("card_contents");
+        while ( card_contents.hasChildNodes() ) { card_contents.removeChild( card_contents.firstChild ); }
+        const posting = document.getElementById("posting");
+        while ( posting.hasChildNodes() ) { posting.removeChild( posting.firstChild ); }
+
         $.ajax({
             url: "/foo",
             type: "POST",
@@ -146,8 +164,6 @@
                 for (let i = 0; i < obj.length; i++) {
                     create_card(i, obj[i].title, obj[i].link)
                 }
-                const posting = document.getElementById("posting");
-                posting.innerText = posting.innerText + "\n\n\n행복한 하루 되세요!\n\n\n\"쿠팡 파트너스 활동을 통해 일정액의 수수료를 제공받을 수 있습니다\""
             }
         });
     }
@@ -165,7 +181,7 @@
 
         const img = document.createElement("img");
         img.className = "card-img-top"
-        img.src = "../static/images/screenshot".concat(i, ".png");
+        img.src = "http://222.99.121.13/resource/screenshot".concat(i, ".png");
 
         const div3 = document.createElement("div");
         div3.className = "card-body"
@@ -191,8 +207,22 @@
 
         card_content.appendChild(div0)
 
+
+        // direct posting
         const posting = document.getElementById("posting");
-        posting.innerText = posting.innerText + "\n\nTop[".concat(i + 1, "] - ", title)
+        const _title = "Top[".concat(i + 1, "] - ", title);
+        const _h5 = document.createElement("h5")
+        _h5.innerText = _title;
+        const _img = document.createElement("img")
+        _img.src = "http://222.99.121.13/resource/screenshot".concat(i, ".png");
+        const _p = document.createElement("p")
+        _p.innerText = link
+        posting.appendChild(document.createElement("br"))
+        posting.appendChild(document.createElement("br"))
+        posting.appendChild(_h5)
+        posting.appendChild(_img)
+        posting.appendChild(_p)
+        posting.appendChild(document.createElement("br"))
     }
 </script>
 </body>
