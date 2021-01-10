@@ -58,10 +58,10 @@
 
             <div class="footer">
                 <p>
-                    <a href="https://blog.naver.com/apangd">블로그</a>
+                    <a href="https://blog.naver.com/apangd" target="_blank">블로그</a>
                 </p>
                 <p>
-                    <a href="https://partners.coupang.com/">쿠팡 파트너스</a>
+                    <a href="https://partners.coupang.com/" target="_blank">쿠팡 파트너스</a>
                 </p>
                 <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     Copyright &copy;<script>document.write(new Date().getFullYear());</script>
@@ -183,22 +183,24 @@
 
         const img = document.createElement("img");
         img.className = "card-img-top"
-        img.src = "http://222.99.121.13/resource/screenshot".concat(i, ".png?n=", link);
+        img.src = "http://222.99.121.13/resource/screenshot".concat(link.split("itemId=")[1], ".png?r=", Math.random().toString());
 
         const div3 = document.createElement("div");
         div3.className = "card-body"
 
-        const h5 = document.createElement("h5");
-        h5.className = "card-title"
-        h5.innerText = title
+        const a = document.createElement("a");
+        a.className = "card-title custom_a"
+        a.innerText = title
+        a.target="_blank"
+        a.href = link
 
         const p = document.createElement("p")
         p.className = "card-text"
-        p.innerText = link
+        p.innerText = "ID: ".concat(link.split("itemId=")[1])
 
         //<a href="#" class="btn btn-primary">Go somewhere</a>
 
-        div3.appendChild(h5)
+        div3.appendChild(a)
         div3.appendChild(p)
 
         div2.appendChild(img)
@@ -215,15 +217,15 @@
         const _title = "Top[".concat(i + 1, "] - ", title);
         const _h5 = document.createElement("h5")
         _h5.innerText = _title;
-        const _img = document.createElement("img")
-        _img.src = "http://222.99.121.13/resource/screenshot".concat(i, ".png?n=", link);
-        const _p = document.createElement("p")
-        _p.innerText = link
+        const _p1 = document.createElement("p")
+        _p1.innerText = "https://dthumb-phinf.pstatic.net/?src=%22http%3A%2F%2F222.99.121.13%2Fresource%2Fscreenshot".concat(link.split("itemId=")[1], ".png?r=", Math.random().toString() ,"%22&type=m10000_10000");
+        const _p2 = document.createElement("p")
+        _p2.innerText = link
         posting.appendChild(document.createElement("br"))
         posting.appendChild(document.createElement("br"))
         posting.appendChild(_h5)
-        posting.appendChild(_img)
-        posting.appendChild(_p)
+        posting.appendChild(_p1)
+        posting.appendChild(_p2)
         posting.appendChild(document.createElement("br"))
     }
 </script>

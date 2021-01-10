@@ -47,7 +47,7 @@ def show_contents():
         cropped_img.save("./static/images/screenshot" + str(idx) + ".png")
         call('echo {} | sudo -S {}'.format(pwd,
                                            "cp ./static/images/screenshot" + str(
-                                               idx) + ".png" + " /var/www/html/resource/"),
+                                               idx) + ".png" + " /var/www/html/resource/screenshot" + str(ids[1]) + ".png"),
              shell=True)
         print(title)
         ret.append({"title": title, "link": "https://www.coupang.com/vp/products/" + ids[0] + "?itemId=" + ids[1]})
@@ -66,13 +66,12 @@ def crawling(h, m):
     while True:
         now = datetime.datetime.now()
         if now.hour == h and now.minute == m:
-            TimeMaker.update_title()
             naver_ranked_keywords = n_crawling()
             c_crawling(naver_ranked_keywords)
         time.sleep(60)
 
 
 if __name__ == '__main__':
-    threading.Thread(target=crawling, args=(17, 0)).start()
+    threading.Thread(target=crawling, args=(24, 0)).start()
     app.run(host="0.0.0.0", debug=False)
     # app.run(debug=True)

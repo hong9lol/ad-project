@@ -8291,3 +8291,8 @@ a[data-toggle="collapse"] {
 #card_content {
   width: 100%;
   }
+
+.custom_a {
+  color: #000000;
+  font-size: large;
+}
