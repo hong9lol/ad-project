@@ -219,13 +219,16 @@
         _h5.innerText = _title;
         const _p1 = document.createElement("p")
         _p1.innerText = "https://dthumb-phinf.pstatic.net/?src=%22http%3A%2F%2F222.99.121.13%2Fresource%2Fscreenshot".concat(link.split("itemId=")[1], ".png?r=", Math.random().toString() ,"%22&type=m10000_10000");
-        const _p2 = document.createElement("p")
-        _p2.innerText = link
+        const _a1 = document.createElement("a")
+        _a1.innerText = "상품 페이지"
+        _a1.href = link
+
+
         posting.appendChild(document.createElement("br"))
         posting.appendChild(document.createElement("br"))
         posting.appendChild(_h5)
         posting.appendChild(_p1)
-        posting.appendChild(_p2)
+        posting.appendChild(_a1)
         posting.appendChild(document.createElement("br"))
     }
 </script>
