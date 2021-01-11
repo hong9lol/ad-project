@@ -124,7 +124,9 @@
             </div>
 
             <div class="col-12">
-                <p><br><br><br>행복한 하루 되세요! <br><br><br> "쿠팡 파트너스 활동을 통해 일정액의 수수료를 제공받을 수 있습니다" </p>
+                <p><br><br><br>행복한 하루 되세요! <br><br><br> "쿠팡 파트너스 활동을 통해 일정액의 수수료를 제공받을 수 있습니다"
+                    <br> [이미지 출처] <a style="color:gray" href="https://www.coupang.com"> https://www.coupang.com </a>
+                </p>
             </div>
         </div>
     </div>
@@ -156,7 +158,7 @@
         document.getElementById("main-title").innerText = key.concat(" 포스팅 정보")
 
         $.ajax({
-            url: "/foo",
+            url: "/makepost",
             type: "POST",
             contentType: "text/plain",
             data: values,
@@ -219,16 +221,14 @@
         _h5.innerText = _title;
         const _p1 = document.createElement("p")
         _p1.innerText = "https://dthumb-phinf.pstatic.net/?src=%22http%3A%2F%2F222.99.121.13%2Fresource%2Fscreenshot".concat(link.split("itemId=")[1], ".png?r=", Math.random().toString() ,"%22&type=m10000_10000");
-        const _a1 = document.createElement("a")
-        _a1.innerText = "상품 페이지"
-        _a1.href = link
-
+        const _p2 = document.createElement("p")
+        _p2.innerText = link
 
         posting.appendChild(document.createElement("br"))
         posting.appendChild(document.createElement("br"))
         posting.appendChild(_h5)
         posting.appendChild(_p1)
-        posting.appendChild(_a1)
+        posting.appendChild(_p2)
         posting.appendChild(document.createElement("br"))
     }
 </script>

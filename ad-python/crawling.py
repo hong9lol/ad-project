@@ -54,9 +54,13 @@ def n_crawling():
             for cy in cys:
                 cy_list.append(cy.get_attribute("cy"))
 
+            if len(cy_list) < 7:
+                print("Error:" + word + len(cy_list))
+                key_words_dict[word] = 9999999
+                browser.close()
             # sum ratio for a week
             _sum = 0
-            for _idx in range(len(cy_list) - 7, len(cy_list)):
+            for _idx in range(len(cy_list) - 7, len(cy_list) + 1):
                 _sum += float(cy_list[_idx])
 
             key_words_dict[word] = _sum

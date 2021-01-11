@@ -20,7 +20,7 @@ pwd = '1'
 cmd = 'ls'
 
 
-@app.route('/foo', methods=['POST'])
+@app.route('/makepost', methods=['POST'])
 def show_contents():
     ret = list()
     contents = request.data.decode('utf-8')
