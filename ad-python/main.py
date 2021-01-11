@@ -72,6 +72,6 @@ def crawling(h, m):
 
 
 if __name__ == '__main__':
-    threading.Thread(target=crawling, args=(24, 0)).start()
+    threading.Thread(target=crawling, args=(0, 0)).start()
     app.run(host="0.0.0.0", debug=False)
     # app.run(debug=True)

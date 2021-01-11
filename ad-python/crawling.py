@@ -5,7 +5,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 from utils import save
 
-chromeDriverPath = "/usr/bin/chromedriver"
+# chromeDriverPath = "/usr/bin/chromedriver"
 key_words_list = list()
 key_words_dict = dict()
 delay = 5
@@ -15,10 +15,10 @@ def n_crawling():
     key_words_dict.clear()
     num_of_categories = 11
     cid_value = 50000000
-    browser = webdriver.Chrome(chromeDriverPath)
 
     # Get key words
     for i in range(num_of_categories):
+        browser = webdriver.Chrome()
         browser.get("https://datalab.naver.com/shoppingInsight/sCategory.naver?cid=" + str(cid_value))
         try:
             WebDriverWait(browser, delay).until(lambda x: x.find_element_by_class_name("rank_top1000_num"))
@@ -37,6 +37,7 @@ def n_crawling():
     # Rank key words
     for key_words in key_words_list:
         for idx, word in enumerate(key_words):
+            browser = webdriver.Chrome()
             if idx == 0:
                 continue
 
@@ -70,9 +71,9 @@ def n_crawling():
 
 
 def c_crawling(ranked_keywords):
-    browser = webdriver.Chrome(chromeDriverPath)
     output = dict()
     for key in ranked_keywords:
+        browser = webdriver.Chrome()
         browser.get(
             "https://www.coupang.com/np/search?component=&q=" + key + "&channel=user")
         try:
